@@ -21,6 +21,9 @@ def create_app():
     # Register blueprints
     from routers.articles import bp as articles_bp
     app.register_blueprint(articles_bp)
+    
+    from routers.sources import bp as sources_bp
+    app.register_blueprint(sources_bp)
 
     @app.route("/")
     def home():

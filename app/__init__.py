@@ -1,4 +1,3 @@
-# app/__init__.py
 from flask import Flask
 from models.base import db
 from flask_migrate import Migrate
@@ -15,9 +14,13 @@ def create_app():
     db.init_app(app)
     Migrate(app, db)
 
-    # Import models here so they are registered
+    # Import models to register them with SQLAlchemy
     from models.article import Article
     from models.source import Source
+
+    # Register blueprints
+    from routers.articles import bp as articles_bp
+    app.register_blueprint(articles_bp)
 
     @app.route("/")
     def home():

@@ -1,19 +1,23 @@
 # Dockerfile
+FROM python:3.12-slim
 
-FROM python:3.10-slim
+# Set environment variables (modern format)
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
-# Set work directory
 WORKDIR /app
 
-# Install dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy project files
+COPY requirements.txt .
+
+RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
+
 COPY . .
 
-# Expose port
 EXPOSE 5000
 
-# Run the app
-CMD ["python3", "main.py"]
+CMD ["python3", "main.py", "--host=0.0.0.0", "--port=5000"]

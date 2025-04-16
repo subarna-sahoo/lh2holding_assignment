@@ -4,8 +4,10 @@ from models.source import Source
 from models.base import db
 from sqlalchemy import desc
 from datetime import datetime
+from utils.tasks import fetch_and_queue_articles  # for fetch-now
 
 bp = Blueprint('articles', __name__, url_prefix='/articles')
+
 
 
 @bp.route("/", methods=["GET"])
@@ -52,3 +54,9 @@ def get_articles():
             } for a in articles
         ]
     })
+
+
+@bp.route("/fetch-now", methods=["POST"])
+def fetch_now():
+    fetch_and_queue_articles.delay()
+    return jsonify({"status": "Feed fetch task enqueued"}), 202

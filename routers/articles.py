@@ -48,6 +48,7 @@ def get_articles():
                 "url": a.url,
                 "image": a.main_image,
                 "author": a.author,
+                "content": a.content,
                 "date": a.published_date.isoformat() if a.published_date else None,
                 "summary": a.summary,
                 "source": a.source.name if a.source else None

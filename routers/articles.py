@@ -7,10 +7,13 @@ from datetime import datetime
 
 bp = Blueprint('articles', __name__, url_prefix='/articles')
 
-@bp.route('/', methods=['GET'])
+
+@bp.route("/", methods=["GET"])
 def get_articles():
-    date_str = request.args.get('date')  # Optional: ?date=2025-04-16
-    source_id = request.args.get('source_id')  # Optional: ?source_id=1
+    date_str = request.args.get("date")
+    source_id = request.args.get("source_id")
+    page = int(request.args.get("page", 1))
+    limit = int(request.args.get("limit", 10))
 
     query = Article.query
 
@@ -18,23 +21,34 @@ def get_articles():
         try:
             date = datetime.strptime(date_str, "%Y-%m-%d").date()
             query = query.filter(db.func.date(Article.published_date) == date)
-        except:
+        except ValueError:
             return jsonify({"error": "Invalid date format. Use YYYY-MM-DD"}), 400
 
     if source_id:
         query = query.filter(Article.source_id == source_id)
 
-    articles = query.order_by(desc(Article.published_date)).limit(50).all()
+    total = query.count()
+    articles = query.order_by(desc(Article.published_date)) \
+                    .offset((page - 1) * limit) \
+                    .limit(limit) \
+                    .all()
 
-    return jsonify([
-        {
-            "id": a.id,
-            "url": a.url,
-            "image": a.main_image,
-            "author": a.author,
-            "date": a.published_date.isoformat() if a.published_date else None,
-            "summary": a.summary,
-            "source": a.source.name if a.source else None
-        }
-        for a in articles
-    ])
+    return jsonify({
+        "meta": {
+            "page": page,
+            "limit": limit,
+            "total": total,
+            "pages": (total + limit - 1) // limit  # ceiling division
+        },
+        "data": [
+            {
+                "id": a.id,
+                "url": a.url,
+                "image": a.main_image,
+                "author": a.author,
+                "date": a.published_date.isoformat() if a.published_date else None,
+                "summary": a.summary,
+                "source": a.source.name if a.source else None
+            } for a in articles
+        ]
+    })

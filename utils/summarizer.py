@@ -4,6 +4,7 @@ import os
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def summarize_text(content: str) -> str:
+    print("openai.api_key: ", openai.api_key)
     try:
         response = openai.ChatCompletion.create(
             model="gpt-4",

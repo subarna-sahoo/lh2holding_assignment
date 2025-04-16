@@ -16,7 +16,7 @@ def parse_feed(source):
 
         article = Article(
             url=parsed["url"],
-            title=parsed["title"],
+            # title=parsed["title"], # We are also getting title from the xml
             author=parsed["author"],
             main_image=parsed["image"],
             content=parsed["content"],

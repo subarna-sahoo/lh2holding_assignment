@@ -23,9 +23,9 @@ services:
     container_name: postgres_db
     restart: always
     environment:
-      POSTGRES_USER: temp_user
-      POSTGRES_PASSWORD: temp_pass
-      POSTGRES_DB: temp_db
+      POSTGRES_USER: rss_user
+      POSTGRES_PASSWORD: rss_pass
+      POSTGRES_DB: rss_data
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:

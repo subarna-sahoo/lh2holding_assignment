@@ -91,13 +91,14 @@ flask run  # or use python3 main.py
 
 ---
 
-## 🐳 Docker (Recommended)
+## 🐳 Docker (Recommended) | This will auto create everything
 ```bash
 docker-compose up --build
 ```
 Access:
 - Flask App: [http://localhost:5000](http://localhost:5000)
 - Flower: [http://localhost:5555](http://localhost:5555)
+- Article View Web Page: [http://localhost:5000/articles-view](http://localhost:5000/articles-view)
 
 If you want to manually run DB migration after containers start:
 ```bash

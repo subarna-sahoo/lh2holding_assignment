@@ -107,7 +107,6 @@ docker-compose exec flask_app flask db upgrade # can be added as script to run a
 ---
 
 ## 📬 Postman Collection
-
 A Postman collection is available for testing the APIs.
 - 🌐 [View Postman Collection Online](https://.postman.co/workspace/My-Workspace~46438c75-9823-41c8-886e-c03d33fa4ce5/collection/19852477-3c923ccb-62cd-444d-85b0-a1c56003a465?action=share&creator=19852477)
 - 💡 Import it into Postman using **File > Import > Link** or **Upload Files**
@@ -127,6 +126,12 @@ A Postman collection is available for testing the APIs.
 - OpenAI API
 - Bootstrap / Jinja2 / jQuery
 - Docker / Docker Compose
+
+---
+
+## 🖼️ UI Preview
+Below is a screenshot of the article listing page:
+![View Articles UI](https://github.com/user-attachments/assets/26259788-d8cb-47c9-b35e-3139776ba96f)
 
 ---
 

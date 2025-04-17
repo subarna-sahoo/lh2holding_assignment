@@ -22,6 +22,7 @@ def summarize_article(self, article_id):
             db.session.rollback()
             raise self.retry(exc=e, countdown=10)
 
+
 @celery.task
 def fetch_and_queue_articles():
     app = create_app()
@@ -29,15 +30,26 @@ def fetch_and_queue_articles():
         sources = Source.query.all()
 
         for source in sources:
-            new_articles = parse_feed(source)
+            try:
+                new_articles = parse_feed(source)
+            except Exception as e:
+                print(f"❌ Failed to parse feed for {source.name}: {e}")
+                continue
 
             for article_data in new_articles:
                 try:
+                    # Ensure uniqueness (avoid inserting same article)
+                    existing = Article.query.filter_by(url=article_data["url"]).first()
+                    if existing:
+                        continue
+
                     article = Article(**article_data, source_id=source.id)
                     db.session.add(article)
                     db.session.flush()  # Ensures article.id is available
+
                     summarize_article.delay(article.id)
-                except:
+                except Exception as e:
                     db.session.rollback()
+                    print(f"⚠️ Failed to insert article from {source.name}: {e}")
 
             db.session.commit()

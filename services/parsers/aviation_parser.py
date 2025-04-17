@@ -23,11 +23,7 @@ class AviationParser(BaseParser):
     def parse_feed(self):
         feed = feedparser.parse(self.source.feed_url)
         rows = []
-        if 'Aviation' not in self.source.feed_url:
-            print(f"Parsing feed: {feed}")
-            return []
-        else:
-            return []
+
         for e in feed.entries:
             rows.append(
                 {

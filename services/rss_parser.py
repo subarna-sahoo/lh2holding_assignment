@@ -2,5 +2,5 @@ from services.parser_factory import get_parser
 
 
 def parse_feed(source):
-    """Return list[dict] – each dict ready for Article(**d)."""
-    return get_parser(source).parse_feed()
+    parser = get_parser(source)  # ✅ Returns the correct concrete class
+    return parser.parse_feed()

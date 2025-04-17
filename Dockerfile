@@ -3,6 +3,7 @@ FROM python:3.12-slim
 # Set environment variables (modern format)
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
+ENV FLASK_APP=manage.py
 
 WORKDIR /app
 

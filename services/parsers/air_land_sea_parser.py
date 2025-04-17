@@ -24,7 +24,6 @@ class AirLandSeaParser(BaseParser):
     def parse_feed(self):
         feed = feedparser.parse(self.source.feed_url)
         rows = []
-        print(f"Parsing feed: {feed}")
  
         for e in feed.entries:
             rows.append(

@@ -22,6 +22,11 @@ services:
         condition: service_healthy
       rabbitmq:
         condition: service_healthy
+    command: >
+      sh -c "
+        flask db upgrade &&
+        python3 manage.py seed_sources &&
+        python3 main.py"
 
   celery_worker:
     build: .

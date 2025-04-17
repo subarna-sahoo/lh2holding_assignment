@@ -1,19 +1,34 @@
-import openai
+from openai import OpenAI
 import os
+from dotenv import load_dotenv
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+load_dotenv()
+
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def summarize_text(content: str) -> str:
-    print("openai.api_key: ", openai.api_key)
     try:
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-4",
             messages=[
-                {"role": "system", "content": "You are a professional news summarizer."},
-                {"role": "user", "content": f"Summarize the following article:\n\n{content}"}
+                {
+                    "role": "system",
+                    "content": "You are a professional news editor."
+                },
+                {
+                "role": "user",
+                "content": (
+                    "Summarize the following news article in exactly 4 concise sentences. "
+                    "Fix any grammar or sentence structure issues, and remove redundancy. "
+                    "Focus on the most important facts: who, what, where, when, and why. "
+                    "Do not include phrases like 'the article says' or 'more info can be found'. "
+                    "Format your response as plain text with each sentence on a new line.\n\n"
+                    f"{content}"
+                )
+                }
             ],
-            max_tokens=300,
-            temperature=0.5
+            max_tokens=400,
+            temperature=0.7
         )
         return response.choices[0].message.content.strip()
     except Exception as e:

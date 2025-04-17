@@ -1,0 +1,9 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install Flower
+RUN pip install --no-cache-dir flower
+
+# Set the default command
+CMD ["celery", "flower"]

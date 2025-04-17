@@ -1,31 +1,33 @@
+from abc import ABC, abstractmethod
 from datetime import datetime
 
-class BaseParser:
-    def __init__(self, entry, source):
-        self.entry = entry
+
+class BaseParser(ABC):
+    """Abstract superclass for all feed‑specific parsers."""
+
+    def __init__(self, source):
         self.source = source
+    
+    @abstractmethod
+    def url(self, entry):
+        pass
 
-    def parse(self):
-        return {
-            "url": self.entry.link,
-            "title": self.entry.title,
-            "author": self.get_author(),
-            "content": self.get_content(),
-            "image": self.get_image(),
-            "published": self.get_published()
-        }
+    @abstractmethod
+    def author(self, entry):
+        pass
+    
+    @abstractmethod
+    def image(self, entry):
+        pass
 
-    def get_author(self):
-        return self.entry.get("author", "Unknown")
+    @abstractmethod
+    def content(self, entry):
+        pass
+    
+    @abstractmethod
+    def published_date(self, entry):
+        pass
 
-    def get_content(self):
-        return self.entry.get("summary", "")
-
-    def get_image(self):
-        return ""
-
-    def get_published(self):
-        try:
-            return datetime(*self.entry.published_parsed[:6])
-        except:
-            return datetime.utcnow()
+    @abstractmethod
+    def parse_feed(self):
+        pass

@@ -1,8 +1,8 @@
-"""Initial schema
+"""create articles and sources tables
 
-Revision ID: 0e439a9225e1
+Revision ID: 6d75ac8f8124
 Revises: 
-Create Date: 2025-04-16 12:32:36.867364
+Create Date: 2025-04-17 03:26:51.877822
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '0e439a9225e1'
+revision = '6d75ac8f8124'
 down_revision = None
 branch_labels = None
 depends_on = None

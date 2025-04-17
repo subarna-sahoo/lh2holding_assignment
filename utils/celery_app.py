@@ -13,7 +13,7 @@ def make_celery():
     celery.conf.beat_schedule = {
         'fetch-feeds-every-5-minutes': {
             'task': 'utils.tasks.fetch_and_queue_articles',
-            'schedule': 300.0,  # every 5 minutes
+            'schedule': 1800.0,  # every 30 minutes / 3600 for hour
         },
     }
 

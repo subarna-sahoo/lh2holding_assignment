@@ -132,6 +132,6 @@ A Postman collection is available for testing the APIs.
 
 ## ✨ Author
 **Your Name**  
-GitHub: [@subarna_sahoo](https://github.com/subarna_sahoo)
+GitHub: [@subarna_sahoo](https://github.com/subarna-sahoo)
 
 ---

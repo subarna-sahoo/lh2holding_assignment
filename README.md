@@ -134,8 +134,3 @@ Below is a screenshot of the article listing page:
 ![View Articles UI](https://github.com/user-attachments/assets/26259788-d8cb-47c9-b35e-3139776ba96f)
 
 ---
-
-## ✨ Author 
-GitHub: [@subarna_sahoo](https://github.com/subarna-sahoo)
-
----

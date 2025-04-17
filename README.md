@@ -135,8 +135,7 @@ Below is a screenshot of the article listing page:
 
 ---
 
-## ✨ Author
-**Your Name**  
+## ✨ Author 
 GitHub: [@subarna_sahoo](https://github.com/subarna-sahoo)
 
 ---
